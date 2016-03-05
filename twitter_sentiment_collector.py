@@ -6,6 +6,7 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 from textblob_de import TextBlobDE as TextBlob
 from elasticsearch import Elasticsearch
+from functools import reduce
 
 # import twitter keys and tokens
 from config import *
@@ -28,7 +29,7 @@ class TweetStreamListener(StreamListener):
             # pass tweet into TextBlob            
             tweet = TextBlob(dict_data["text"])
             
-            #print(tweet)
+            print(tweet)
             # output sentiment polarity
             #print tweet.sentiment.polarity
     
@@ -45,7 +46,7 @@ class TweetStreamListener(StreamListener):
             #print int(time.mktime(time.strptime(dict_data['created_at'],'%a %b %d %H:%M:%S +0000 %Y')))
     
             # add text and sentiment info to elasticsearch
-            es.index(index="tweets_farm",
+            es.index(index="tweets",
                      doc_type="tweet_sentiment",
                      body={"date": createTimestamp,
                            "message": dict_data["text"],
@@ -84,7 +85,7 @@ if __name__ == '__main__':
             stream = Stream(auth, listener)
         
             # search twitter for "congress" keyword
-            stream.filter(track=['flüchtling', 'flucht', 'refugee'])
+            stream.filter(track=['flüchtling', 'flucht', 'hannover'])
     
     except:
         print("error in main:", sys.exc_info()[0])

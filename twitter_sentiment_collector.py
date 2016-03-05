@@ -29,6 +29,9 @@ class TweetStreamListener(StreamListener):
             # pass tweet into TextBlob            
             tweet = TextBlob(dict_data["text"])
             
+            if dict_data["lang"] != "de":
+                return;
+            
             print(tweet)
             # output sentiment polarity
             #print tweet.sentiment.polarity
@@ -49,6 +52,7 @@ class TweetStreamListener(StreamListener):
             es.index(index="tweets",
                      doc_type="tweet_sentiment",
                      body={"date": createTimestamp,
+                           "user": dict_data["user"]["id_str"],
                            "message": dict_data["text"],
                            "language": dict_data["lang"],  
                            "hashtags": reduce(lambda x,y:  { 'text' : str(x["text"]) + " " + str(y["text"]) }, dict_data["entities"]["hashtags"])["text"] if len(dict_data["entities"]["hashtags"])>0 else "",
@@ -85,7 +89,7 @@ if __name__ == '__main__':
             stream = Stream(auth, listener)
         
             # search twitter for "congress" keyword
-            stream.filter(track=['flüchtling', 'flucht', 'hannover'])
+            stream.filter(track=['flüchtling', 'flucht', 'syrien', 'balkanroute', 'fluechtling', 'rapefugees'])
     
     except:
         print("error in main:", sys.exc_info()[0])

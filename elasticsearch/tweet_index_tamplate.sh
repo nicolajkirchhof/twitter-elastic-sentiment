@@ -11,7 +11,37 @@ curl -XPUT localhost:9200/_template/tweet01 -d '{
             "properties": {
                 "date":         {
                     "type": "date",
-                    "format": "yyyy-MM-dd HH:mm:ss||epoch_millis",
+A
+A
+A
+A
+A
+A
+A
+A
+A
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+B
+                    "format": "yyy-MM-dd HH:mm:ss||epoch_millis",
                     "doc_values": true
                 },
                 "message":      {

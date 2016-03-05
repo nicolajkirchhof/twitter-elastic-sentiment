@@ -4,7 +4,7 @@ import time
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
-from textblob import TextBlob
+from textblob_de import TextBlobDE as TextBlob
 from elasticsearch import Elasticsearch
 
 # import twitter keys and tokens
@@ -27,7 +27,8 @@ class TweetStreamListener(StreamListener):
             
             # pass tweet into TextBlob            
             tweet = TextBlob(dict_data["text"])
-    
+            
+            #print(tweet)
             # output sentiment polarity
             #print tweet.sentiment.polarity
     

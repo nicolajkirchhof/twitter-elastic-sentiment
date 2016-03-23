@@ -35,7 +35,7 @@ class TweetStreamListener(StreamListener):
                 return
 
             
-            print(dict_data["text"])
+            print(dict_data["text"].encode('ascii', 'ignore'))
             # output sentiment polarity
             #print tweet.sentiment.polarity
     
